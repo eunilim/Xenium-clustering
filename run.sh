@@ -43,11 +43,11 @@ function read_yaml(){
 OUTPUT_DIR="$(read_yaml ${CONFIG_FILE} output_dir | xargs)"
 PROJECT_NAME="$(read_yaml ${CONFIG_FILE} project_name | xargs)"
 OUTPUT_DIR="${OUTPUT_DIR%/}/${PROJECT_NAME}"
-PIPELINE_FOLDER="$(read_yaml ${CONFIG_FILE} pipeline)"
+PIPELINE_FOLDER="$(read_yaml ${CONFIG_FILE} pipeline | xargs)"
 CONDA_ENV="$(read_yaml ${CONFIG_FILE} conda_env)"
 R_MODULE="$(read_yaml ${CONFIG_FILE} R_module)"
 CLUSTER_CONFIG="$(read_yaml ${CONFIG_FILE} cluster_config)"
-PROJECT_NAME="$(read_yaml ${CONFIG_FILE} project_name)"
+PROJECT_NAME="$(read_yaml ${CONFIG_FILE} project_name | xargs)"
 
 
 if [[ -v R_MODULE ]]; then module load $R_MODULE; else echo "Using default R"; fi
@@ -62,7 +62,6 @@ if [[ ! -d "${OUTPUT_DIR}/scripts" ]]; then mkdir "${OUTPUT_DIR}/scripts"; fi
 cd ${OUTPUT_DIR}
 
 # rm -r "${OUTPUT_DIR}/scripts/*" # Is this necessary?
-
 cp -r ${PIPELINE_FOLDER}/slurm .
 
 if [[ $(wc -l $CLUSTER_CONFIG) > 0 ]]; then 
@@ -74,7 +73,8 @@ fi
 cp $CONFIG_FILE config.yaml
 # conda activate $CONDA_ENV
 
-JOBFILE="${OUTPUT_DIR}/scripts/clump_${PROJECT_NAME}"
+#JOBFILE="${OUTPUT_DIR}/scripts/clump_${PROJECT_NAME}"
+JOBFILE="$(echo "${OUTPUT_DIR}/scripts/clump_${PROJECT_NAME}" | xargs)"
 
 cp /home/fcastaneda/bin/spatial_clustering/routine_template_emma_Slurm_Spatial_Clustering.sh ${JOBFILE}.sh # for the new HPC
 
