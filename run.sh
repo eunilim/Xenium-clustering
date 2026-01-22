@@ -40,8 +40,8 @@ function read_yaml(){
 
 # CONFIG_FILE=/home/fcastaneda/bin/spatial_clustering/config.yaml
 
-OUTPUT_DIR="$(read_yaml ${CONFIG_FILE} output_dir)"
-PROJECT_NAME="$(read_yaml ${CONFIG_FILE} project_name)"
+OUTPUT_DIR="$(read_yaml ${CONFIG_FILE} output_dir | xargs)"
+PROJECT_NAME="$(read_yaml ${CONFIG_FILE} project_name | xargs)"
 OUTPUT_DIR="${OUTPUT_DIR%/}/${PROJECT_NAME}"
 PIPELINE_FOLDER="$(read_yaml ${CONFIG_FILE} pipeline)"
 CONDA_ENV="$(read_yaml ${CONFIG_FILE} conda_env)"
@@ -58,6 +58,7 @@ echo "Output path: ${OUTPUT_DIR}"
 
 if [[ ! -d "${OUTPUT_DIR}" ]]; then mkdir --parents "${OUTPUT_DIR}"; fi
 if [[ ! -d "${OUTPUT_DIR}/scripts" ]]; then mkdir "${OUTPUT_DIR}/scripts"; fi
+
 cd ${OUTPUT_DIR}
 
 # rm -r "${OUTPUT_DIR}/scripts/*" # Is this necessary?
