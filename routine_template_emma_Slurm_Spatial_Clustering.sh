@@ -27,7 +27,7 @@
 ######################################################################
 
 echo -----------------------------------------------------------------
-echo -n 'Job is running on node '; cat ${SLURM_NODELIST}
+echo -n 'Job is running on node '; echo ${SLURM_NODELIST}
 echo -----------------------------------------------------------------
 echo Slurm: sbacth is running on ${SLURM_SUBMIT_HOST}
 echo Slurm: originating queue is ${SLURM_JOB_PARTITION}
