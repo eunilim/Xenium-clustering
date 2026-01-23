@@ -27,7 +27,7 @@
 ######################################################################
 
 echo -----------------------------------------------------------------
-echo -n 'Job is running on node '; echo ${SLURM_NODELIST}
+echo -n 'Job is running on node' echo "${SLURM_NODELIST}"
 echo -----------------------------------------------------------------
 echo Slurm: sbacth is running on ${SLURM_SUBMIT_HOST}
 echo Slurm: originating queue is ${SLURM_JOB_PARTITION}
@@ -108,7 +108,7 @@ runprogram()
   # {pre_routine}
   # {routine_params}
    #module load {R_module}
-   #conda activate {conda_env}
+  conda activate {conda_env}
 
   snakemake --profile slurm --snakefile {PIPELINE_FOLDER}/Snakefile --stats ${PROJDIR}/scripts/snakemake.stats >& ${PROJDIR}/scripts/snakemake.log
   # # {post_routine}
