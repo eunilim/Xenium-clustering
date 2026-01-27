@@ -76,7 +76,7 @@ cp $CONFIG_FILE config.yaml
 #JOBFILE="${OUTPUT_DIR}/scripts/clump_${PROJECT_NAME}"
 JOBFILE="$(echo "${OUTPUT_DIR}/scripts/clump_${PROJECT_NAME}" | xargs)"
 
-cp /home/fcastaneda/bin/spatial_clustering/routine_template_emma_Slurm_Spatial_Clustering.sh ${JOBFILE}.sh # for the new HPC
+cp /mnt/bioadhoc/Groups/vd-vijay/eunil/pipelines/Xenium-clustering/routine_template_emma_Slurm_Spatial_Clustering.sh ${JOBFILE}.sh # for the new HPC
 
 sed -i 's|{cellranger}|spatial|' ${JOBFILE}.sh
 sed -i 's|{username}|'"${USER}"'|g' ${JOBFILE}.sh
@@ -91,7 +91,7 @@ sed -i 's|{PIPELINE_FOLDER}|'"${PIPELINE_FOLDER}"'|g' ${JOBFILE}.sh
 if [[ -v R_MODULE ]]; then sed -i 's|#module load {R_module}|module load '"${R_MODULE}"'|g' ${JOBFILE}.sh; echo "Using user defined R"; else echo "Using default R"; fi
 
 sed -i 's|#conda activate {conda_env}|conda activate '"${CONDA_ENV}"'|g' ${JOBFILE}.sh
-
+sed -i 's|conda run -n {conda_env}|conda run -n '"${CONDA_ENV}"'|g' ${JOBFILE}.sh
 sed -i 's|cp ${PROJ.*|cp -r ${PROJDIR}/. ./|g' ${JOBFILE}.sh # to copy everything to scratch
 sed -i 's|cp -R ./.*${PROJ.*|cp -r . ${PROJDIR}/|g' ${JOBFILE}.sh # copy from scratch
 
