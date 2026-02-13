@@ -107,10 +107,9 @@ runprogram()
   # {pre_routine}
   # {routine_params}
   #module load {R_module}
-
-  conda run -n xenium snakemake --version
-
-  conda run -n {conda_env} snakemake --profile slurm --snakefile {PIPELINE_FOLDER}/Snakefile   --use-conda --conda-frontend mamba  --stats ${PROJDIR}/scripts/snakemake.stats >& ${PROJDIR}/scripts/snakemake.log
+  #mamba activate {conda_env}
+  
+  snakemake --profile slurm --snakefile {PIPELINE_FOLDER}/Snakefile --stats ${PROJDIR}/scripts/snakemake.stats >& ${PROJDIR}/scripts/snakemake.log
   # # {post_routine}
 }
 
